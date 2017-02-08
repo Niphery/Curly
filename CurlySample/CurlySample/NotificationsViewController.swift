@@ -16,7 +16,6 @@ class NotificationsViewController: UIViewController {
         
         noteName.listenFrom(self) {
             innerSelf,_ in
-            
             innerSelf.timesFired += 1
         }
     }
@@ -31,7 +30,7 @@ class NotificationsViewController: UIViewController {
     
     @IBOutlet weak var label: UILabel!
     
-    @IBAction func tappedFire(sender: AnyObject) {
-        NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: noteName, object: nil))
+    @IBAction func tappedFire(_ sender: AnyObject) {
+        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: noteName), object: nil))
     }
 }
