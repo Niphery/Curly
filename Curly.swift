@@ -373,7 +373,7 @@ private class Curly : NSObject {
 	}
 }
 
-extension Curly {
+public extension Curly {
 	//Create this extension to keep old methods compatibility. Code copied from old file.
 	fileprivate struct Delay {
 		static var delayKeys:[String:Int] = [:]
