@@ -157,7 +157,6 @@ public extension UIControl {
 		self.addTarget(delegate, action:#selector(Curly.ControlDelegate.recognizedControlEvent(_:)), for: events)
 		delegateDictionary?[events.rawValue]!.append(delegate)
 		objc_setAssociatedObject(self, &CurlyAssociatedDelegateDictionaryHandle, delegateDictionary, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-
 	}
 
 	public func removeActions(_ events:UIControlEvents) {
@@ -170,7 +169,6 @@ public extension UIControl {
 		}
 		delegateDictionary?[events.rawValue] = nil
 		objc_setAssociatedObject(self, &CurlyAssociatedDelegateDictionaryHandle, delegateDictionary, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-
 	}
 }
 
@@ -370,37 +368,6 @@ private class Curly : NSObject {
 			super.init()
 		}
 
-	}
-}
-
-public extension Curly {
-	//Create this extension to keep old methods compatibility. Code copied from old file.
-	fileprivate struct Delay {
-		static var delayKeys:[String:Int] = [:]
-		static var delayCounter:Int = 0
-	}
-
-	class func delay(_ delay:Double, closure:@escaping () -> Void) {
-		DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay, execute: closure)
-	}
-
-	class func delay(_ delay: Double, key: String, closure: @escaping ()->()) {
-		Delay.delayCounter += 1
-		let counter = Delay.delayCounter
-		Delay.delayKeys[key] = counter
-
-		self.delay(delay) {
-			if let value = self.Delay.delayKeys[key] {
-				if value == counter {
-					closure()
-					self.stopDelay(key)
-				}
-			}
-		}
-	}
-
-	class func stopDelay(_ key:String) {
-		Delay.delayKeys[key] = nil
 	}
 }
 
